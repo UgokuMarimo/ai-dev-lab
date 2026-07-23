@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getProjectBySlug, getProjectSlugs } from '@/lib/mdx';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { ArrowLeft, Cpu, Code2, Calendar } from 'lucide-react';
+import { ArrowLeft, Code2, Calendar } from 'lucide-react';
 
 interface ProjectPageProps {
   params: Promise<{

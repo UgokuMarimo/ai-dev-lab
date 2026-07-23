@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { getAllArticles, getAllProjects } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
-import { SITE_CONFIG } from '@/lib/constants';
 import { ArrowRight, Bot, Sparkles, TrendingUp, ShieldCheck, Terminal, Cpu } from 'lucide-react';
 
 export default function HomePage() {
