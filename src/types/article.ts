@@ -1,5 +1,6 @@
 export interface ArticleFrontmatter {
   title: string;
+  subtitle?: string;
   description: string;
   publishedAt: string;
   updatedAt?: string;

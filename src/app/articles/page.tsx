@@ -48,6 +48,11 @@ export default function ArticlesPage() {
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors leading-snug">
                 <Link href={`/articles/${article.slug}`}>
                   {article.frontmatter.title}
+                  {article.frontmatter.subtitle && (
+                    <span className="block text-sm font-bold text-emerald-700 mt-1">
+                      {article.frontmatter.subtitle}
+                    </span>
+                  )}
                 </Link>
               </h2>
 

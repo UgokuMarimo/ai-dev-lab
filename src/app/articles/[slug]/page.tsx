@@ -23,8 +23,12 @@ export async function generateMetadata({ params }: ArticlePageProps) {
   const article = getArticleBySlug(resolvedParams.slug);
   if (!article) return { title: 'Not Found' };
 
+  const pageTitle = article.frontmatter.subtitle
+    ? `${article.frontmatter.title} ${article.frontmatter.subtitle}`
+    : article.frontmatter.title;
+
   return {
-    title: `${article.frontmatter.title} | AI Dev Lab`,
+    title: `${pageTitle} | AI Dev Lab`,
     description: article.frontmatter.description,
   };
 }
@@ -62,11 +66,19 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
           </span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight tracking-tight">
-          {article.frontmatter.title}
-        </h1>
+        {/* Title & Subtitle */}
+        <div className="space-y-2">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight tracking-tight">
+            {article.frontmatter.title}
+          </h1>
+          {article.frontmatter.subtitle && (
+            <p className="text-lg sm:text-xl font-bold text-emerald-700 tracking-wide pt-1">
+              {article.frontmatter.subtitle}
+            </p>
+          )}
+        </div>
 
-        <p className="text-base text-slate-700 leading-relaxed bg-slate-100/80 border-l-4 border-emerald-600 p-4 rounded-r-lg">
+        <p className="text-base text-slate-700 leading-relaxed bg-slate-100/80 border-l-4 border-emerald-600 p-4 rounded-r-lg mt-4">
           {article.frontmatter.description}
         </p>
 
