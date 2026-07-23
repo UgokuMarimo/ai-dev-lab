@@ -4,29 +4,29 @@ import { Cpu } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-slate-800/80 bg-slate-950 text-slate-400 py-12">
+    <footer className="w-full border-t border-slate-200 bg-white text-slate-600 py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand Info */}
           <div className="md:col-span-2 space-y-3">
-            <Link href="/" className="flex items-center gap-2 font-bold text-slate-100">
-              <div className="flex h-7 w-7 items-center justify-center rounded bg-gradient-to-tr from-emerald-500 to-teal-400 text-slate-950">
+            <Link href="/" className="flex items-center gap-2 font-bold text-slate-900">
+              <div className="flex h-7 w-7 items-center justify-center rounded bg-emerald-600 text-white">
                 <Cpu className="h-4 w-4" />
               </div>
               <span>{SITE_CONFIG.name}</span>
             </Link>
-            <p className="text-sm text-slate-400 max-w-md leading-relaxed">
+            <p className="text-sm text-slate-500 max-w-md leading-relaxed">
               {SITE_CONFIG.description}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-300 mb-3">Navigation</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3">Navigation</h3>
             <ul className="space-y-2">
               {NAV_ITEMS.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-sm hover:text-emerald-400 transition-colors">
+                  <Link href={item.href} className="text-sm hover:text-emerald-600 transition-colors">
                     {item.label}
                   </Link>
                 </li>
@@ -36,13 +36,13 @@ export function Footer() {
 
           {/* Connect */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-300 mb-3">Links</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3">Links</h3>
             <div className="flex gap-4">
               <a
                 href={SITE_CONFIG.social.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-white transition-colors"
+                className="text-slate-500 hover:text-slate-900 transition-colors"
                 aria-label="GitHub"
               >
                 <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
@@ -53,7 +53,7 @@ export function Footer() {
                 href={SITE_CONFIG.social.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-sky-400 transition-colors"
+                className="text-slate-500 hover:text-sky-500 transition-colors"
                 aria-label="X / Twitter"
               >
                 <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
@@ -64,7 +64,7 @@ export function Footer() {
                 href={SITE_CONFIG.social.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-red-400 transition-colors"
+                className="text-slate-500 hover:text-red-500 transition-colors"
                 aria-label="YouTube"
               >
                 <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
@@ -75,7 +75,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-slate-800/60 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+        <div className="border-t border-slate-200 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400">
           <p>© {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.</p>
           <p className="mt-2 sm:mt-0">Built with Next.js, TypeScript & Tailwind CSS</p>
         </div>

@@ -4,16 +4,19 @@ import { Cpu } from 'lucide-react';
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/90 backdrop-blur-md shadow-xs">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 font-bold text-lg text-slate-100 hover:text-emerald-400 transition-colors">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-tr from-emerald-500 to-teal-400 text-slate-950 shadow-md shadow-emerald-500/20">
+        <Link href="/" className="flex items-center gap-2.5 font-bold text-lg text-slate-900 hover:text-emerald-600 transition-colors">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-600 text-white shadow-sm">
             <Cpu className="h-5 w-5" />
           </div>
-          <span className="bg-gradient-to-r from-slate-100 via-slate-200 to-slate-400 bg-clip-text text-transparent font-extrabold tracking-tight">
-            {SITE_CONFIG.name}
-          </span>
+          <div className="flex flex-col">
+            <span className="font-extrabold tracking-tight text-slate-900 text-base leading-none">
+              {SITE_CONFIG.name}
+            </span>
+            <span className="text-[10px] text-slate-500 font-normal">AI×個人開発の検証メディア</span>
+          </div>
         </Link>
 
         {/* Navigation */}
@@ -22,7 +25,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="px-3.5 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 rounded-md transition-all"
+              className="px-3.5 py-2 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-slate-100 rounded-md transition-all"
             >
               {item.label}
             </Link>
@@ -30,12 +33,12 @@ export function Header() {
         </nav>
 
         {/* Social Icons */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <a
             href={SITE_CONFIG.social.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800/60 rounded-md transition-colors"
+            className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-md transition-colors"
             aria-label="GitHub"
           >
             <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
@@ -46,7 +49,7 @@ export function Header() {
             href={SITE_CONFIG.social.twitter}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 text-slate-400 hover:text-sky-400 hover:bg-slate-800/60 rounded-md transition-colors"
+            className="p-2 text-slate-500 hover:text-sky-500 hover:bg-slate-100 rounded-md transition-colors"
             aria-label="X / Twitter"
           >
             <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
@@ -57,7 +60,7 @@ export function Header() {
             href={SITE_CONFIG.social.youtube}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 text-slate-400 hover:text-red-400 hover:bg-slate-800/60 rounded-md transition-colors"
+            className="p-2 text-slate-500 hover:text-red-500 hover:bg-slate-100 rounded-md transition-colors"
             aria-label="YouTube"
           >
             <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">

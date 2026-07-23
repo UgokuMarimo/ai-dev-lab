@@ -38,19 +38,19 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
   }
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto py-12 space-y-8">
+    <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto py-12 space-y-8">
       {/* Back Link */}
       <Link
         href="/articles"
-        className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-emerald-400 transition-colors"
+        className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-emerald-600 font-semibold transition-colors"
       >
         <ArrowLeft className="h-3.5 w-3.5" /> 記事一覧に戻る
       </Link>
 
       {/* Header Info */}
-      <header className="space-y-4 border-b border-slate-800 pb-8">
-        <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400">
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">
+      <header className="space-y-4 border-b border-slate-200 pb-8">
+        <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500">
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">
             <Folder className="h-3 w-3" />
             {article.frontmatter.category}
           </span>
@@ -62,11 +62,11 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
           </span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight tracking-tight">
           {article.frontmatter.title}
         </h1>
 
-        <p className="text-base text-slate-300 leading-relaxed bg-slate-900/50 border-l-2 border-emerald-500 p-4 rounded-r-lg">
+        <p className="text-base text-slate-700 leading-relaxed bg-slate-100/80 border-l-4 border-emerald-600 p-4 rounded-r-lg">
           {article.frontmatter.description}
         </p>
 
@@ -74,9 +74,9 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
           {article.frontmatter.tags.map((tag) => (
             <span
               key={tag}
-              className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-slate-400"
+              className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 font-medium"
             >
-              <Tag className="h-3 w-3 text-slate-500" />
+              <Tag className="h-3 w-3 text-slate-400" />
               {tag}
             </span>
           ))}
@@ -84,9 +84,9 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
       </header>
 
       {/* Article Content (MDX Rendered) */}
-      <div className="prose prose-invert prose-emerald max-w-none prose-headings:font-bold prose-headings:text-white prose-p:text-slate-300 prose-p:leading-relaxed prose-code:text-emerald-300 prose-code:bg-slate-900 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-pre:bg-slate-900 prose-pre:border prose-pre:border-slate-800">
+      <article className="prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-p:text-slate-700 prose-p:leading-relaxed prose-code:text-emerald-700 prose-code:bg-slate-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-pre:bg-slate-900 prose-pre:text-slate-100">
         <MDXRemote source={article.content} />
-      </div>
+      </article>
     </div>
   );
 }
