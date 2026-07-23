@@ -1,0 +1,33 @@
+---
+title: "競馬予測AI & 自動投票システム"
+description: "機械学習モデル（LightGBM / PyTorch）による競走馬の勝率・回収率予測と、Selenium/APIを用いた完全自動投票システムの開発・運用検証。"
+status: "active"
+category: "AI / Machine Learning"
+techStack: ["Python", "LightGBM", "PyTorch", "PostgreSQL", "Docker", "Selenium"]
+startDate: "2024-01-15"
+featured: true
+metrics:
+  - label: "自動投票運用"
+    value: "稼働中"
+  - label: "検証フェーズ"
+    value: "オッズ変動・回収率"
+  - label: "管理形態"
+    value: "GitHub / CI/CD"
+---
+
+## プロジェクト概要
+
+「競馬AI」は、個人開発によるAIモデルが競走結果をどの程度精度高く予測でき、かつ自動投票運用によって収益（副業）として成立するかを定量検証する第一弾プロジェクトです。
+
+### 開発・検証のポイント
+
+- **データ収集・前処理**: 過去数万レースの馬場状態・血統・タイム・騎手データを集計・特徴量エンジニアリング。
+- **モデル開発**: 複数アンサンブルモデル（LightGBM, PyTorch等）による期待値（EV: Expected Value）算出。
+- **自動投票パイプライン**: 確定オッズと予想確率から期待値をリアルタイム計算し、条件を満たした場合のみ自動投票。
+- **GitHub & CI/CD管理**: コードおよび学習パイプラインを再現可能な形で管理。
+
+### 現在の検証テーマ
+
+1. 期待値閾値の設定とオッズ変動（直前オッズの急変）への追従
+2. 長期的な回収率（Recovery Rate）および的中率（Hit Rate）のモニタリング
+3. 特徴量追加・モデルチューニングによる予測力向上
