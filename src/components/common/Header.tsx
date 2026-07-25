@@ -1,6 +1,6 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { NAV_ITEMS, SITE_CONFIG } from '@/lib/constants';
-import { Cpu } from 'lucide-react';
 
 export function Header() {
   return (
@@ -8,14 +8,20 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 font-bold text-lg text-slate-900 hover:text-emerald-600 transition-colors">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-600 text-white shadow-sm">
-            <Cpu className="h-5 w-5" />
+          <div className="relative h-9 w-9 overflow-hidden rounded-lg border border-emerald-200 shadow-xs shrink-0">
+            <Image
+              src="/images/avatar.png"
+              alt="うごく毬藻"
+              fill
+              className="object-cover"
+              sizes="36px"
+            />
           </div>
           <div className="flex flex-col">
             <span className="font-extrabold tracking-tight text-slate-900 text-base leading-none">
               {SITE_CONFIG.name}
             </span>
-            <span className="text-[10px] text-slate-500 font-normal">AI×個人開発の検証メディア</span>
+            <span className="text-[10px] text-slate-500 font-normal mt-0.5">AI×個人開発の検証メディア</span>
           </div>
         </Link>
 

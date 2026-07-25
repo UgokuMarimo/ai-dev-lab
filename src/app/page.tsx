@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllArticles, getAllProjects } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
 import { SITE_CONFIG } from '@/lib/constants';
-import { ArrowRight, BookOpen, Bot, User, Sparkles, Tag, Clock } from 'lucide-react';
+import { ArrowRight, BookOpen, Bot, Sparkles, Tag, Clock } from 'lucide-react';
 
 export default function HomePage() {
   const articles = getAllArticles();
@@ -106,12 +107,18 @@ export default function HomePage() {
           {/* Profile Card */}
           <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-4">
             <div className="flex items-center gap-3">
-              <div className="h-12 w-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg border border-emerald-200 shrink-0">
-                <User className="h-6 w-6" />
+              <div className="relative h-12 w-12 rounded-full overflow-hidden border-2 border-emerald-500/30 shadow-xs shrink-0">
+                <Image
+                  src="/images/avatar.png"
+                  alt="うごく毬藻"
+                  fill
+                  className="object-cover"
+                  sizes="48px"
+                />
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 text-base">{SITE_CONFIG.author.name}</h3>
-                <p className="text-xs text-slate-500">{SITE_CONFIG.author.role}</p>
+                <h3 className="font-bold text-slate-900 text-sm leading-snug">{SITE_CONFIG.author.name}</h3>
+                <p className="text-xs text-slate-500 mt-0.5">{SITE_CONFIG.author.role}</p>
               </div>
             </div>
 
