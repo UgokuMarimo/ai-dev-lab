@@ -5,9 +5,9 @@ export const SITE_CONFIG = {
     'AIを活用した個人開発・自動化ツールの構築・ブログ運営の過程をリアルに発信するポートフォリオ＆テクニカルメディア。第一弾は「競馬AI」の実運用と回収率検証。',
   url: 'https://ai-dev-lab.vercel.app',
   author: {
-    name: 'UgokuMarimo',
-    role: 'AI Engineer & Solo Developer',
-    bio: '好きな仕事だけをして自由に暮らすことを目指し、AIモデル開発・自動化システム構築・Webサービス個人開発を実践・検証中。',
+    name: 'うごく毬藻｜AI個人開発ｘ競馬AI検証',
+    role: 'AI Solo Developer',
+    bio: '「好きな仕事だけをして自由に暮らす」ことを目指し、AIモデル開発・自動化システム構築・Webサービス個人開発を実践・検証中。',
     avatar: '/images/avatar.png',
   },
   social: {
