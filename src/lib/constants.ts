@@ -12,7 +12,7 @@ export const SITE_CONFIG = {
   },
   social: {
     github: 'https://github.com/UgokuMarimo/ai-dev-lab',
-    twitter: 'https://x.com',
+    twitter: 'https://x.com/UgokuMarimoAI',
     youtube: 'https://youtube.com',
   },
 };
