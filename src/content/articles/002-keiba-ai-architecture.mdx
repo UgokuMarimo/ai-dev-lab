@@ -46,15 +46,54 @@ JRAのオッズは締め切り直前に大口投票などで急変動するた�
 
 システムは、機械学習、データエンジン、Web自動化、クラウド同期、XAI（説明可能AI）などを組み合わせた構成になっています。
 
-| カテゴリ | 選定技術 | 主な役割・用途 |
-| :--- | :--- | :--- |
-| **言語・基盤** | **Python 3.12** | システム全体の開発言語 |
-| **AI / 機械学習** | **LightGBM** | 芝/ダート×単勝/複勝の **4つの予測モデル** に分離して運用 |
-| **ハイパーパラメータ** | **Optuna** | 予測精度（AUC）を最大化する自動チューニング |
-| **説明可能AI (XAI)** | **SHAP × Gemini API** | 「なぜこの馬を推奨したか」の特徴量寄与度を自然な日本語で自動生成 |
-| **データベース** | **PostgreSQL × SQLite** | 応答性能に優れたローカルSQLiteと、永続化用クラウドPostgreSQLの双方向同期 |
-| **Web自動化・投票** | **Playwright** | ブラウザ操作の完全自動化（ログイン・オッズ取得・UMACA自動投票） |
-| **通知・ダッシュボード** | **Discord Webhook / Streamlit** | リアルタイム投票通知と、回収率・的中率の可視化WebUI |
+<div className="my-6 overflow-x-auto">
+  <table className="w-full text-left text-sm border-collapse rounded-xl overflow-hidden shadow-xs border border-slate-200">
+    <thead className="bg-slate-100 text-slate-900 border-b border-slate-200">
+      <tr>
+        <th className="py-3 px-4 font-bold">カテゴリ</th>
+        <th className="py-3 px-4 font-bold">選定技術</th>
+        <th className="py-3 px-4 font-bold">主な役割・用途</th>
+      </tr>
+    </thead>
+    <tbody className="divide-y divide-slate-100 bg-white">
+      <tr className="hover:bg-slate-50">
+        <td className="py-3 px-4 font-semibold text-emerald-700 shrink-0">言語・基盤</td>
+        <td className="py-3 px-4 font-bold text-slate-900">Python 3.12</td>
+        <td className="py-3 px-4 text-slate-600">システム全体の開発言語</td>
+      </tr>
+      <tr className="hover:bg-slate-50">
+        <td className="py-3 px-4 font-semibold text-emerald-700">AI / 機械学習</td>
+        <td className="py-3 px-4 font-bold text-slate-900">LightGBM</td>
+        <td className="py-3 px-4 text-slate-600">芝/ダート×単勝/複勝の <strong>4つの予測モデル</strong> に分離して運用</td>
+      </tr>
+      <tr className="hover:bg-slate-50">
+        <td className="py-3 px-4 font-semibold text-emerald-700">ハイパーパラメータ</td>
+        <td className="py-3 px-4 font-bold text-slate-900">Optuna</td>
+        <td className="py-3 px-4 text-slate-600">予測精度（AUC）を最大化する自動チューニング</td>
+      </tr>
+      <tr className="hover:bg-slate-50">
+        <td className="py-3 px-4 font-semibold text-emerald-700">説明可能AI (XAI)</td>
+        <td className="py-3 px-4 font-bold text-slate-900">SHAP × Gemini API</td>
+        <td className="py-3 px-4 text-slate-600">「なぜこの馬を推奨したか」の特徴量寄与度を自然な日本語で自動生成</td>
+      </tr>
+      <tr className="hover:bg-slate-50">
+        <td className="py-3 px-4 font-semibold text-emerald-700">データベース</td>
+        <td className="py-3 px-4 font-bold text-slate-900">PostgreSQL × SQLite</td>
+        <td className="py-3 px-4 text-slate-600">応答性能に優れたローカルSQLiteと、永続化用クラウドPostgreSQLの双方向同期</td>
+      </tr>
+      <tr className="hover:bg-slate-50">
+        <td className="py-3 px-4 font-semibold text-emerald-700">Web自動化・投票</td>
+        <td className="py-3 px-4 font-bold text-slate-900">Playwright</td>
+        <td className="py-3 px-4 text-slate-600">ブラウザ操作の完全自動化（ログイン・オッズ取得・UMACA自動投票）</td>
+      </tr>
+      <tr className="hover:bg-slate-50">
+        <td className="py-3 px-4 font-semibold text-emerald-700">通知・ダッシュボード</td>
+        <td className="py-3 px-4 font-bold text-slate-900">Discord / Streamlit</td>
+        <td className="py-3 px-4 text-slate-600">リアルタイム投票通知と、回収率・的中率の可視化WebUI</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 ---
 
