@@ -33,7 +33,7 @@ export default function HomePage() {
 
       {/* Latest Prediction Highlight Banner */}
       {latestPrediction && (
-        <section className="bg-white rounded-xl border border-[#2d6a4f]/30 p-6 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <section className="bg-white rounded-xl border border-slate-300 p-6 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#e8f5e9] text-[#1b4332] text-xs font-semibold border border-[#2d6a4f]/20">
               <Trophy className="h-3.5 w-3.5" />
@@ -48,7 +48,7 @@ export default function HomePage() {
           </div>
           <Link
             href={`/predictions/${latestPrediction.slug}`}
-            className="shrink-0 px-4 py-2 bg-[#1b4332] hover:bg-[#2d6a4f] text-white text-xs font-bold rounded-lg transition-colors inline-flex items-center gap-1.5"
+            className="shrink-0 px-4 py-2 bg-[#1b4332] hover:bg-[#2d6a4f] text-white text-xs font-bold rounded-lg transition-colors inline-flex items-center gap-1.5 shadow-xs"
           >
             予測テーブルを見る <ArrowRight className="h-4 w-4" />
           </Link>
@@ -59,7 +59,7 @@ export default function HomePage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* Left Column: Articles List (Main Blog Feed) */}
         <main className="lg:col-span-2 space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+          <div className="flex items-center justify-between border-b border-slate-300 pb-4">
             <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-[#1b4332]" />
               最新の開発ログ・記事
@@ -71,7 +71,7 @@ export default function HomePage() {
             {articles.map((article) => (
               <article
                 key={article.slug}
-                className="group bg-white rounded-xl border border-slate-200 p-6 shadow-xs hover:shadow-md hover:border-[#2d6a4f]/50 transition-all duration-200 flex flex-col justify-between"
+                className="group bg-white rounded-xl border border-slate-300 p-6 shadow-sm hover:shadow-md hover:border-[#2d6a4f] transition-all duration-200 flex flex-col justify-between"
               >
                 <div className="space-y-3">
                   {/* Category & Date */}

@@ -36,7 +36,7 @@ export default async function PredictionDetailPage({ params }: Props) {
   }
 
   return (
-    <article className="py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-8">
+    <article className="py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-8 bg-white rounded-2xl border border-slate-300 p-6 sm:p-10 shadow-sm my-6">
       {/* Back link */}
       <div>
         <Link

@@ -44,7 +44,7 @@ export default function PredictionsPage() {
               <Link
                 key={item.slug}
                 href={`/predictions/${item.slug}`}
-                className="group bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#2d6a4f]/50 transition-all duration-200 flex flex-col justify-between"
+                className="group bg-white rounded-xl border border-slate-300 p-5 shadow-sm hover:shadow-md hover:border-[#2d6a4f] transition-all duration-200 flex flex-col justify-between"
               >
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between text-xs">

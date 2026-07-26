@@ -42,7 +42,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
   }
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto py-12 space-y-8">
+    <div className="max-w-3xl mx-auto py-8 my-6 px-6 sm:px-10 bg-white rounded-2xl border border-slate-300 shadow-sm space-y-8">
       {/* Back Link */}
       <Link
         href="/articles"
