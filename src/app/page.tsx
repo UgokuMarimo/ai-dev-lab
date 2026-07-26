@@ -1,19 +1,21 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllArticles, getAllProjects } from '@/lib/mdx';
+import { getAllArticles, getAllProjects, getAllPredictions } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
 import { SITE_CONFIG } from '@/lib/constants';
-import { ArrowRight, BookOpen, Bot, Sparkles, Tag, Clock } from 'lucide-react';
+import { ArrowRight, BookOpen, Bot, Sparkles, Tag, Clock, Trophy } from 'lucide-react';
 
 export default function HomePage() {
   const articles = getAllArticles();
   const projects = getAllProjects();
+  const predictions = getAllPredictions();
+  const latestPrediction = predictions[0];
   const mainProject = projects.find((p) => p.slug === 'keiba-ai') || projects[0];
 
   return (
     <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-10">
       {/* Blog Top Banner / Concept Card */}
-      <section className="rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700 p-8 sm:p-10 text-white shadow-md space-y-4">
+      <section className="rounded-2xl bg-gradient-to-r from-[#1b4332] via-[#2d6a4f] to-[#1e4d38] p-8 sm:p-10 text-white shadow-md space-y-4">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-emerald-100 text-xs font-semibold">
           <Sparkles className="h-3.5 w-3.5" />
           <span>AI Solo Developer Verification Blog</span>
@@ -29,13 +31,37 @@ export default function HomePage() {
         </p>
       </section>
 
+      {/* Latest Prediction Highlight Banner */}
+      {latestPrediction && (
+        <section className="bg-white rounded-xl border border-[#2d6a4f]/30 p-6 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#e8f5e9] text-[#1b4332] text-xs font-semibold border border-[#2d6a4f]/20">
+              <Trophy className="h-3.5 w-3.5" />
+              <span>最新のAI競馬予測公開中</span>
+            </div>
+            <h3 className="font-bold text-slate-900 text-lg">
+              {latestPrediction.frontmatter.title}
+            </h3>
+            <p className="text-xs text-slate-600">
+              {latestPrediction.frontmatter.description}
+            </p>
+          </div>
+          <Link
+            href={`/predictions/${latestPrediction.slug}`}
+            className="shrink-0 px-4 py-2 bg-[#1b4332] hover:bg-[#2d6a4f] text-white text-xs font-bold rounded-lg transition-colors inline-flex items-center gap-1.5"
+          >
+            予測テーブルを見る <ArrowRight className="h-4 w-4" />
+          </Link>
+        </section>
+      )}
+
       {/* Main Grid Layout (Blog Feed + Sidebar) */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* Left Column: Articles List (Main Blog Feed) */}
         <main className="lg:col-span-2 space-y-6">
           <div className="flex items-center justify-between border-b border-slate-200 pb-4">
             <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-              <BookOpen className="h-5 w-5 text-emerald-600" />
+              <BookOpen className="h-5 w-5 text-[#1b4332]" />
               最新の開発ログ・記事
             </h2>
             <span className="text-xs text-slate-500 font-medium">全 {articles.length} 件</span>
@@ -45,12 +71,12 @@ export default function HomePage() {
             {articles.map((article) => (
               <article
                 key={article.slug}
-                className="group bg-white rounded-xl border border-slate-200 p-6 shadow-xs hover:shadow-md hover:border-emerald-500/50 transition-all duration-200 flex flex-col justify-between"
+                className="group bg-white rounded-xl border border-slate-200 p-6 shadow-xs hover:shadow-md hover:border-[#2d6a4f]/50 transition-all duration-200 flex flex-col justify-between"
               >
                 <div className="space-y-3">
                   {/* Category & Date */}
                   <div className="flex items-center justify-between text-xs">
-                    <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200">
+                    <span className="px-2.5 py-1 rounded-full bg-[#e8f5e9] text-[#1b4332] font-semibold border border-[#2d6a4f]/20">
                       {article.frontmatter.category}
                     </span>
                     <span className="text-slate-400 inline-flex items-center gap-1">
@@ -62,11 +88,11 @@ export default function HomePage() {
                   </div>
 
                   {/* Title & Subtitle */}
-                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors leading-snug">
+                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#1b4332] transition-colors leading-snug">
                     <Link href={`/articles/${article.slug}`}>
                       {article.frontmatter.title}
                       {article.frontmatter.subtitle && (
-                        <span className="block text-sm font-bold text-emerald-700 mt-1">
+                        <span className="block text-sm font-bold text-[#2d6a4f] mt-1">
                           {article.frontmatter.subtitle}
                         </span>
                       )}
@@ -92,7 +118,7 @@ export default function HomePage() {
 
                   <Link
                     href={`/articles/${article.slug}`}
-                    className="text-xs font-bold text-emerald-600 group-hover:text-emerald-700 inline-flex items-center gap-1 shrink-0"
+                    className="text-xs font-bold text-[#1b4332] group-hover:text-[#2d6a4f] inline-flex items-center gap-1 shrink-0"
                   >
                     続きを読む <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
@@ -128,7 +154,7 @@ export default function HomePage() {
 
             <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
               <span className="text-slate-500 font-medium">検証テーマ</span>
-              <span className="font-bold text-emerald-600">AI×副業検証</span>
+              <span className="font-bold text-[#1b4332]">AI×副業検証</span>
             </div>
           </div>
 
@@ -137,7 +163,7 @@ export default function HomePage() {
             <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                  <Bot className="h-4 w-4 text-emerald-600" />
+                  <Bot className="h-4 w-4 text-[#1b4332]" />
                   第1弾 プロジェクト
                 </span>
                 <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-100 text-emerald-700">
@@ -146,7 +172,7 @@ export default function HomePage() {
               </div>
 
               <h4 className="font-bold text-slate-900 text-base">
-                <Link href={`/projects/${mainProject.slug}`} className="hover:text-emerald-600 transition-colors">
+                <Link href={`/projects/${mainProject.slug}`} className="hover:text-[#1b4332] transition-colors">
                   {mainProject.frontmatter.title}
                 </Link>
               </h4>
@@ -166,7 +192,7 @@ export default function HomePage() {
               <div className="pt-3 border-t border-slate-100 text-right">
                 <Link
                   href={`/projects/${mainProject.slug}`}
-                  className="text-xs font-bold text-emerald-600 hover:text-emerald-700 inline-flex items-center gap-1"
+                  className="text-xs font-bold text-[#1b4332] hover:text-emerald-700 inline-flex items-center gap-1"
                 >
                   開発ドキュメントを見る <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
@@ -182,7 +208,7 @@ export default function HomePage() {
                 href={SITE_CONFIG.social.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between hover:text-emerald-600 py-1"
+                className="flex items-center justify-between hover:text-[#1b4332] py-1"
               >
                 <span>GitHub (ソースコード管理)</span>
                 <ArrowRight className="h-3 w-3" />

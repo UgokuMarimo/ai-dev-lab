@@ -19,6 +19,7 @@ export const SITE_CONFIG = {
 
 export const NAV_ITEMS = [
   { label: 'Top', href: '/' },
+  { label: '🤖 AI競馬予測', href: '/predictions' },
   { label: 'Projects', href: '/projects' },
   { label: 'Articles', href: '/articles' },
   { label: 'About', href: '/about' },
