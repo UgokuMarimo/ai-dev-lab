@@ -19,14 +19,14 @@ export default function AuthorSidebar() {
             </div>
             <div className="text-[11px] font-bold text-[#2d6a4f] flex items-center gap-1 mt-0.5">
               <Sparkles className="h-3 w-3 text-emerald-500" />
-              <span>AIエンジニア / 競馬予測</span>
+              <span>AI実験＆探求の公開ラボ</span>
             </div>
           </div>
         </div>
 
         {/* Bio */}
         <p className="text-xs text-slate-600 leading-relaxed border-t border-b border-slate-100 py-3">
-          「好きな仕事だけをして自由に暮らす」を目指すAI開発者。回収率100%超の競馬AIモデルの自動化・検証結果を発信中。
+          「好きな仕事だけをして自由に暮らす」を目指すAIエンジニア。自分が気になるAIの活用法や競馬モデルを実験検証し、その試行錯誤とリアルなデータを記録として公開中。
         </p>
 
         {/* Action Links */}
@@ -46,7 +46,7 @@ export default function AuthorSidebar() {
             className="w-full flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-bold text-[#1b4332] bg-[#e8f5e9] hover:bg-[#2d6a4f] hover:text-white rounded-xl transition-all border border-[#2d6a4f]/20"
           >
             <TrendingUp className="h-3.5 w-3.5" />
-            <span>最新のAI競馬予測</span>
+            <span>AI競馬予測データ</span>
           </Link>
         </div>
       </div>
