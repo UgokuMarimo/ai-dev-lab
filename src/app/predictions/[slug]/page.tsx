@@ -4,6 +4,7 @@ import { getPredictionBySlug, getPredictionSlugs } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
 import { Calendar, ArrowLeft, Tag, Trophy } from 'lucide-react';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -82,8 +83,15 @@ export default async function PredictionDetailPage({ params }: Props) {
       </header>
 
       {/* Article Content (MDX Render) */}
-      <div className="prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-[#1b4332] prose-table:w-full prose-table:border-collapse prose-th:bg-[#f1f6f2] prose-th:p-2 prose-td:p-2 prose-td:border-b prose-td:border-slate-100">
-        <MDXRemote source={prediction.content} />
+      <div className="prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-[#1b4332] prose-table:w-full prose-table:border-collapse prose-th:bg-[#f1f6f2] prose-th:p-2 prose-[#1b4332] prose-td:p-2 prose-td:border-b prose-td:border-slate-100">
+        <MDXRemote
+          source={prediction.content}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkGfm],
+            },
+          }}
+        />
       </div>
 
       {/* Footer Nav */}

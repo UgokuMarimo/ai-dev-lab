@@ -4,6 +4,7 @@ import { getArticleBySlug, getArticleSlugs } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { ArrowLeft, Calendar, Tag, Folder } from 'lucide-react';
+import remarkGfm from 'remark-gfm';
 
 interface ArticlePageProps {
   params: Promise<{
@@ -97,7 +98,14 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
 
       {/* Article Content (MDX Rendered) */}
       <article className="prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-p:text-slate-700 prose-p:leading-relaxed prose-code:text-emerald-700 prose-code:bg-slate-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-pre:bg-slate-900 prose-pre:text-slate-100">
-        <MDXRemote source={article.content} />
+        <MDXRemote
+          source={article.content}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkGfm],
+            },
+          }}
+        />
       </article>
     </div>
   );
