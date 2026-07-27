@@ -6,6 +6,7 @@ import { Calendar, ArrowLeft, Tag } from 'lucide-react';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import StickyRaceNav from '@/components/predictions/StickyRaceNav';
+import AuthorSidebar from '@/components/common/AuthorSidebar';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -39,7 +40,10 @@ export default async function PredictionDetailPage({ params }: Props) {
 
   return (
     <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto my-6 relative">
-      <div className="w-full">
+      {/* Left Author Sidebar */}
+      <AuthorSidebar />
+
+      <div className="w-full max-w-3xl mx-auto">
         {/* Main Article Content */}
         <article className="w-full space-y-8 bg-white rounded-2xl border border-slate-300 p-6 sm:p-10 shadow-sm">
           {/* Back link */}
