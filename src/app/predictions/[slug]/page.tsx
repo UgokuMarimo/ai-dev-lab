@@ -38,10 +38,10 @@ export default async function PredictionDetailPage({ params }: Props) {
   }
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto my-6">
-      <div className="flex flex-col xl:flex-row gap-8 items-start">
+    <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto my-6 relative">
+      <div className="w-full">
         {/* Main Article Content */}
-        <article className="flex-1 w-full space-y-8 bg-white rounded-2xl border border-slate-300 p-6 sm:p-10 shadow-sm">
+        <article className="w-full space-y-8 bg-white rounded-2xl border border-slate-300 p-6 sm:p-10 shadow-sm">
           {/* Back link */}
           <div>
             <Link
