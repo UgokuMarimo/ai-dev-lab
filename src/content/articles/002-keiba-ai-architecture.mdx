@@ -20,25 +20,72 @@ featured: true
 
 ### 発走50分前〜発走直前のタイムライン
 
+```mermaid
+flowchart TD
+    A["🌅 1. 【朝・準備】<br>スケジューラー起動 ➔ クラウドDB(PostgreSQL) と ローカルDB(SQLite) を同期"] --> B["⏱️ 2. 【発走50分前：予測フェーズ】<br>AIモデル(LightGBM 4種)が起動 ➔ 出走馬全頭の勝率・複勝率を予測しDBへ保存"]
+    B --> C["🔍 3. 【発走5分前：期待値スクリーニング】<br>リアルタイムオッズを取得 ➔ 期待値(EV ≥ 1.2)の馬をスクリーニングしDiscordへ速報"]
+    C --> D["⚡ 4. 【発走3分前：自動投票フェーズ (締め切り2分前)】<br>Playwright起動 ➔ 超最新オッズで最終判定(EV ≥ 1.3)<br>➔ 条件適合時のみ単勝100円自動購入 ➔ Discord完了通知"]
+    D --> E["🌙 5. 【夜・事後処理】<br>確定着順・払戻金を取得 ➔ 回収率・的中率をダッシュボードへ更新"]
 ```
-【朝・準備】
-  └─ スケジューラー起動 ➔ クラウドDB(PostgreSQL) と ローカルDB(SQLite) を同期
 
-【発走50分前：予測フェーズ】
-  └─ AIモデル(LightGBM 4種)が起動 ➔ 出走馬全頭の勝率・複勝率を予測しDBへ保存
-
-【発走 5分前：期待値スクリーニング】
-  └─ リアルタイムオッズを取得 ➔ 期待値(EV ≥ 1.2)の馬をスクリーニングしDiscordへ速報
-
-【発走 3分前：自動投票フェーズ（締め切り2分前）】
-  └─ Playwrightが起動 ➔ UMACAへ自動ログイン ➔ 超最新オッズで最終判定(EV ≥ 1.3)
-  └─ 条件に合致した場合のみ100円の単勝馬券を自動購入 ➔ Discordへ完了通知
-
-【夜・事後処理】
-  └─ ネット競馬から確定着順・払戻金を取得 ➔ 回収率・的中率をダッシュボードへ更新
-```
+<div className="my-6 space-y-3">
+  <div className="flex items-start gap-3 p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+    <span className="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg bg-slate-200 text-slate-700">朝・準備</span>
+    <p className="text-xs text-slate-700 leading-relaxed font-medium">スケジューラー起動 ➔ クラウドDB(PostgreSQL) と ローカルDB(SQLite) を同期</p>
+  </div>
+  <div className="flex items-start gap-3 p-3.5 bg-blue-50/60 rounded-xl border border-blue-200">
+    <span className="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg bg-blue-600 text-white">発走50分前</span>
+    <p className="text-xs text-slate-800 leading-relaxed font-medium">AIモデル(LightGBM 4種)起動 ➔ 出走馬全頭の勝率・複勝率を予測しDBへ保存</p>
+  </div>
+  <div className="flex items-start gap-3 p-3.5 bg-amber-50/60 rounded-xl border border-amber-200">
+    <span className="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg bg-amber-600 text-white">発走5分前</span>
+    <p className="text-xs text-slate-800 leading-relaxed font-medium">リアルタイムオッズを取得 ➔ 期待値(EV ≥ 1.2)の馬をスクリーニングしDiscordへ速報</p>
+  </div>
+  <div className="flex items-start gap-3 p-3.5 bg-emerald-50 rounded-xl border-2 border-emerald-500 shadow-xs">
+    <span className="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg bg-emerald-600 text-white">発走3分前 🔥</span>
+    <p className="text-xs text-slate-900 leading-relaxed font-bold">Playwright起動 ➔ UMACAへ自動ログイン ➔ 超最新オッズで最終判定(EV ≥ 1.3) ➔ 100円自動購入 ➔ Discord通知</p>
+  </div>
+  <div className="flex items-start gap-3 p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+    <span className="shrink-0 px-2.5 py-1 text-xs font-bold rounded-lg bg-slate-700 text-white">夜・事後処理</span>
+    <p className="text-xs text-slate-700 leading-relaxed font-medium">確定着順・払戻金を取得 ➔ 回収率・的中率をダッシュボードへ自動更新</p>
+  </div>
+</div>
 
 JRAのオッズは締め切り直前に大口投票などで急変動するため、**「発走3分前（投票締め切り2分前）」の最新オッズで最終判断を下す** のがこのシステムの最大の特徴です。
+
+### 💡 コラム：なぜ「発走50分前」に第1段階予測を実行するのか？
+
+馬体重が発表される「発走約1時間前」に最新情報は出揃いますが、あえて「発走50分前」にAIの基礎予測を回すのには、開発上の深い理由と重要な気づきがあります。
+
+#### 1. 「馬の本質的な基礎能力」を純粋に比較するため
+開発当初は「直前ギリギリの方が、最新の天気や馬場状態に対応できて精度が上がるのでは？」と考えていました。
+しかし検証を重ねる中で、**「直前の雨や馬場変化は、人間の心理・予想に過剰な影響を与え、オッズを極端に動かしてしまう」** ということに気づきました。
+
+競馬AIにおいて最も重要なのは、一時的な条件変化に振り回されず**「その馬が持っている本来の基礎能力と期待値を冷静に比較すること」**です。そのため、馬体重確定直後の50分前にまずベースとなる純粋な勝率を算出しています。
+
+```
+【オッズの歪みとAIの戦略】
+直前の天候・馬場変化 ➔ 人間（一般ファン）が過剰反応 ➔ オッズが本来の確率から歪む ➔ AIは冷静に能力比較
+```
+
+#### 2. 人間の予想補助ツールだった頃の名残
+実は開発初期のシステムは、完全自動投票ではなく「AIの勝率データをもとに人間（自分）がじっくり馬券を組み立てるための補助ツール」としてスタートしました。
+早めにAIの分析を出しておくことで、人間が考える時間を十分に確保できる設計にしていた名残でもあります。
+
+---
+
+### 🔬 【予告】今後の検証テーマ：勝率予測のタイミングで精度はどう変わるのか？
+
+今後、この「予測を実行するタイミング」自体が精度や収支にどう影響するのかを比較実験・検証する予定です。
+
+- **比較対象**: 前日夜 vs 発走50分前 vs 発走直前（10分前）
+- **主要検証項目**:
+  1. **実的中率・単複回収率**
+  2. **予測確率の正答率（較正精度）**: 例えば「勝率15%」と判定された馬たちが、実際に15%前後の確率で勝利しているか？
+
+オッズの歪みと予測タイミングの相関関係についても、データが溜まり次第ブログで公開していきます！
+
+---
 
 ---
 

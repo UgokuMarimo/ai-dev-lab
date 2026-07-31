@@ -1,0 +1,182 @@
+---
+title: "1000レース検証した予測精度と回収率完全公開"
+subtitle: "〜「勝率1位ベタ買いの壁」と通算回収率112.89%を達成した新ルール〜"
+publishedAt: "2026-07-31"
+category: "AI開発・分析"
+description: "2025年10月〜2026年7月の全1,075レースの実証データから「競馬の基本は単勝」の信念のもと、AI予測勝率1位ベタ買いの壁、期待値の閾値、そして通算回収率112.89%達成プロセスと年末着地想定を公開！"
+tags: ["競馬AI", "データ分析", "回収率", "期待値", "単勝"]
+---
+
+### モットー：「競馬の基本は単勝」
+「単勝が当たらなければ、他の複合馬券が当たるわけがない」  
+当競馬AIプロジェクトではこの方針のもと、余計な券種に逃げず<strong>単勝1点買い</strong>に絞って検証・運用を続けています。
+
+本記事では、<strong>2025年10月11日〜2026年7月19日（全1,075レース）</strong>におけるリアルなAI予測精度および各種条件でのバックテスト結果をすべて公開します。
+
+---
+
+## 📌 1. 検証条件サマリー
+
+<div className="my-6 overflow-x-auto">
+  <table className="w-full text-left text-sm border-collapse rounded-xl overflow-hidden shadow-xs border border-slate-200">
+    <thead className="bg-slate-100 text-slate-900 border-b border-slate-200">
+      <tr>
+        <th className="py-3 px-4 font-bold">項目</th>
+        <th className="py-3 px-4 font-bold">詳細内容</th>
+      </tr>
+    </thead>
+    <tbody className="divide-y divide-slate-200">
+      <tr>
+        <td className="py-3 px-4 font-semibold">検証対象期間</td>
+        <td className="py-3 px-4">2025年10月11日 〜 2026年7月19日（約10ヶ月間）</td>
+      </tr>
+      <tr>
+        <td className="py-3 px-4 font-semibold">対象全レース数</td>
+        <td className="py-3 px-4 font-bold text-blue-600">1,075 レース</td>
+      </tr>
+      <tr>
+        <td className="py-3 px-4 font-semibold">購入馬券種</td>
+        <td className="py-3 px-4 font-bold">単勝1点買い</td>
+      </tr>
+      <tr>
+        <td className="py-3 px-4 font-semibold">検証データ</td>
+        <td className="py-3 px-4">AI予測勝率 / リアルタイム確定オッズ / 払戻実績データ</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+---
+
+## 🚨 2. AI勝率1位馬の「ベタ買い」検証結果
+
+まず、AIがレース内で最高勝率と予測した馬をそのまま無条件で購入（100円ベタ買い）した場合の成績です。
+
+![勝率1位馬ベタ買いの月別推移](/images/articles/004/blog_graph_win1_monthly.png)
+
+### 通算成績 (1,075レース)
+* <strong>的中レース数</strong>: <strong>262 レース</strong>
+* <strong>的中率</strong>: <strong>24.37%</strong> (約4レースに1回的中)
+* <strong>総購入金額</strong>: 107,500 円
+* <strong>総払戻金額</strong>: 75,480 円
+* <strong>純損益</strong>: <strong>-32,020 円</strong>
+* <strong>通算回収率 (ROI)</strong>: <strong>70.21%</strong>
+
+AIの予測勝率1位馬は的中率24.37%と非常に高い安定性を示しますが、単勝回収率は70.21%となり、JRAの単勝控除率（還元率80%）を下回る赤字となりました。  
+AIの精度が高くても、オッズの低い本命馬を中心に買わされるため、無条件のベタ買いでは利益が出ないことが明確です。
+
+---
+
+## 🔍 3. 期待値（EV）0.2刻み分析と「EV = 1.8」の発見
+
+次に、AI予測勝率と単勝オッズを掛け合わせた<strong>期待値（EV = 予測勝率 × オッズ）</strong>を0.2刻みの帯域に完全分割し、回収率の分布を分析しました。
+
+![EV帯別回収率ブレイクダウン](/images/articles/004/blog_graph_ev_bins.png)
+
+### 分析結果の核心
+* <strong>EV 1.0 〜 1.79</strong>: 回収率 31.6% 〜 73.8% とすべて大幅な赤字。
+* <strong>EV ≥ 1.8</strong>: <strong>EV = 1.8 に達した瞬間、そこから先の全帯域（1.8-2.0, 2.0-2.2, 2.2-2.4, 2.4-2.6, 2.6-3.0）で例外なく回収率100%超え・黒字化</strong> を達成。
+
+特に <strong>1.8 〜 3.0 (EV)</strong>（通算270レース）に限定した場合、<strong>通算回収率は 140.99%（純利益 +11,170円）</strong> に達します。
+
+> **⚠️ 【課題と注意点】EV 3.0以上で回収率が49.34%へ急落するノイズ現象**:  
+> グラフ右端にある通り、EVが3.0を超えると的中率が <strong>2.48%</strong> へ激減し、回収率も <strong>49.34%</strong> へと急落しています。  
+> 「期待値は高ければ高いほど良い」わけではなく、オッズが高い穴馬に対してAIの微小な予測誤差が掛け算されて発生した<strong>過剰ノイズ（計算上の高EV）</strong>が含まれているためです。このノイズを見極めてフィルター上限（EV 3.0未満の制限等）を設けることが今後の重要な改善課題です。
+
+---
+
+## 🚀 4. 購入ルールの最適化と成績比較
+
+この発見に基づき、従来の購入ルール（EV ≥ 1.3）から <strong>EV ≥ 1.8</strong> へ条件を引き上げた新ルールでのバックテスト実績比較です。
+
+### 確定購入ルール
+* <strong>AI予測勝率</strong>: <code>10% 以上</code>
+* <strong>単勝オッズ範囲</strong>: <code>2.0倍 〜 30.0倍</code>
+* <strong>期待値 (EV)</strong>: <strong><code>1.8 以上</code></strong> (旧 1.3 から引き上げ)
+* <strong>購入頭数</strong>: レース内最高EVの1頭（単勝1点）
+
+![旧ルール vs 新ルールの対比](/images/articles/004/blog_graph_strategy_comparison.png)
+
+### パフォーマンス対比表 (全1,075レース対象)
+
+<div className="my-6 overflow-x-auto">
+  <table className="w-full text-left text-sm border-collapse rounded-xl overflow-hidden shadow-xs border border-slate-200">
+    <thead className="bg-slate-100 text-slate-900 border-b border-slate-200">
+      <tr>
+        <th className="py-3 px-4 font-bold">評価指標</th>
+        <th className="py-3 px-4 font-bold">旧ルール (EV ≥ 1.3)</th>
+        <th className="py-3 px-4 font-bold text-emerald-700 bg-emerald-50">新・最適化ルール (EV ≥ 1.8)</th>
+        <th className="py-3 px-4 font-bold">改善効果</th>
+      </tr>
+    </thead>
+    <tbody className="divide-y divide-slate-200">
+      <tr>
+        <td className="py-3 px-4 font-semibold">購入対象レース</td>
+        <td className="py-3 px-4">607 レース (56.5%)</td>
+        <td className="py-3 px-4 font-bold text-emerald-600 bg-emerald-50/50">391 レース (36.4%)</td>
+        <td className="py-3 px-4">旨味の薄い216レースを見送り</td>
+      </tr>
+      <tr>
+        <td className="py-3 px-4 font-semibold">的中率</td>
+        <td className="py-3 px-4">5.77%</td>
+        <td className="py-3 px-4 font-bold text-emerald-600 bg-emerald-50/50">6.14%</td>
+        <td className="py-3 px-4 text-emerald-600 font-bold">+0.37% アップ</td>
+      </tr>
+      <tr>
+        <td className="py-3 px-4 font-semibold">総購入金額</td>
+        <td className="py-3 px-4">60,700 円</td>
+        <td className="py-3 px-4 font-bold bg-emerald-50/50">39,100 円</td>
+        <td className="py-3 px-4">無駄な資金消費を削減</td>
+      </tr>
+      <tr>
+        <td className="py-3 px-4 font-semibold">純損益</td>
+        <td className="py-3 px-4 text-rose-600 font-semibold">-6,410 円</td>
+        <td className="py-3 px-4 font-bold text-emerald-600 bg-emerald-50/50">+5,040 円</td>
+        <td className="py-3 px-4 font-bold text-emerald-600">黒字化達成！</td>
+      </tr>
+      <tr>
+        <td className="py-3 px-4 font-semibold">通算回収率 (ROI)</td>
+        <td className="py-3 px-4 font-semibold">89.44%</td>
+        <td className="py-3 px-4 font-bold text-emerald-600 bg-emerald-50/50 text-base">112.89%</td>
+        <td className="py-3 px-4 font-bold text-emerald-600 text-base">+23.45% 大幅アップ！</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+期待値1.8未満のゾーンを切り捨てることで、購入レース数を約36%に厳選し、通算回収率 <strong>112.89%（純利益 +5,040円）</strong> の黒字化を達成しました。
+
+> **💡 【現実的なデータ評価とサンプル数に関する前提】**:  
+> ここで提示している全1,075レースという数字は、AIが過去レース全般を予測したバックテスト用データベースです。  
+> 一方で、実際の自動購入システムで条件に合致し<strong>実際に馬券を購入（投票）した実績レース数は現在300レース程度</strong>にとどまります。  
+> したがって、サンプル数としてはまだ限定的であり、この112.89%という回収率がこのまま確定的に収束・維持される保証はありません。今後のレース数の蓄積によって上振れ・下振れの波が発生する前提のもとで試験運用を継続しています。
+
+---
+
+## 5. 2026年7月（現在地）と2026年末時点の着地シミュレーション
+
+今年いっぱい（〜2027年1月）を試験運用期間として設定しています。  
+2026年7月時点での現在地実績と、今年末（2026年12月/全1,700レース想定）に向けた着地予測シミュレーションの比較です。
+
+![現在地と年末シミュレーションの比較](/images/articles/004/blog_graph_year_end_simulation.png)
+
+### 年末（試験運用完了時）の目標数値
+* <strong>想定全レース数</strong>: 約 1,700 レース
+* <strong>購入想定レース数</strong>: 約 620 レース (全体の約36%)
+* <strong>目標通算回収率</strong>: <strong>105% 〜 115%</strong>
+* <strong>想定純利益</strong>: <strong>+8,000 円 〜 +12,000 円</strong>
+
+### 年末（12月）における検証ポイント
+12月に本レポートを読み返す際の比較ポイントとして、以下の2点を記録しておきます。
+
+1. <strong>EV ≥ 1.8 条件の再現性</strong>:
+   7月時点で発見した「EV 1.8以上」の閾値が、秋・冬の開催レースにおいても回収率100%超えを維持できるか。
+2. <strong>通算回収率の収束地点</strong>:
+   データ件数が約1,700レースに増えた段階で、通算回収率が目標値（105%〜115%）の範囲内に着地するか。
+
+---
+
+## 6. 今後の方針
+
+今後も「単勝当たらなければ他も当たらない」の原則通り、単勝1点買いによる検証を継続します。  
+新設定（<code>EV &gt;= 1.8</code>）をシステムに反映し、残り半年間の試験運用でフォワードテスト（実運用検証）を行っていきます。
