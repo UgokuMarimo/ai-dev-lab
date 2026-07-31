@@ -2,11 +2,9 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getPredictionBySlug, getPredictionSlugs } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
-import { Calendar, ArrowLeft, Tag, Trophy, Sparkles } from 'lucide-react';
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import remarkGfm from 'remark-gfm';
-import RacePredictionCard from '@/components/predictions/RacePredictionCard';
-import FeaturedRaceHeader from '@/components/predictions/FeaturedRaceHeader';
+import { Calendar, ArrowLeft, Sparkles } from 'lucide-react';
+import PredictionDashboard from '@/components/predictions/PredictionDashboard';
+import { predictionDay20260726 } from '@/content/predictions/data/2026-07-26';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -38,6 +36,9 @@ export default async function PredictionDetailPage({ params }: Props) {
     notFound();
   }
 
+  // 今回の予測データのセット（日付ベース）
+  const dayData = predictionDay20260726;
+
   return (
     <div className="py-6 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-6">
       {/* 戻るナビゲーション */}
@@ -56,14 +57,14 @@ export default async function PredictionDetailPage({ params }: Props) {
         </span>
       </div>
 
-      {/* ヘッダーカード (ポータルスタイル) */}
+      {/* ヘッダーカード */}
       <header className="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 shadow-lg border border-slate-800 space-y-3 relative overflow-hidden">
         <div className="flex flex-wrap items-center gap-2">
           <span className="px-3 py-1 rounded-md bg-emerald-600 text-white font-extrabold text-xs tracking-wider uppercase">
             {prediction.frontmatter.category || 'AI競馬予想ポータル'}
           </span>
           <span className="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1">
-            <Sparkles className="h-3 w-3" /> 全32レース AI勝率スコア掲載
+            <Sparkles className="h-3 w-3" /> 各競馬場 AI予測結果掲載
           </span>
         </div>
 
@@ -76,32 +77,11 @@ export default async function PredictionDetailPage({ params }: Props) {
             {prediction.frontmatter.subtitle}
           </p>
         )}
-
-        <div className="flex flex-wrap gap-2 pt-2">
-          {prediction.frontmatter.tags?.map((tag) => (
-            <span key={tag} className="text-xs text-slate-300 bg-slate-800 px-2.5 py-1 rounded-md border border-slate-700">
-              #{tag}
-            </span>
-          ))}
-        </div>
       </header>
 
-      {/* メイン競馬ポータルコンテンツ (MDX + カスタムコンポーネント) */}
-      <main className="w-full space-y-8">
-        <div className="prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-[#1b4332] prose-table:w-full prose-table:border-collapse prose-th:bg-slate-800 prose-th:text-white prose-th:p-2.5 prose-td:p-2.5 prose-td:border-b prose-td:border-slate-200">
-          <MDXRemote
-            source={prediction.content}
-            components={{
-              RacePredictionCard,
-              FeaturedRaceHeader,
-            }}
-            options={{
-              mdxOptions: {
-                remarkPlugins: [remarkGfm],
-              },
-            }}
-          />
-        </div>
+      {/* ダッシュボード型 競馬ポータルコンポーネント (確定出馬表 & AI予測勝率スコア) */}
+      <main className="w-full">
+        <PredictionDashboard dayData={dayData} />
       </main>
 
       {/* フッターナビ */}

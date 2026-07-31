@@ -13,7 +13,7 @@ export default function PredictionsPage() {
 
   return (
     <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-8">
-      {/* Header Banner (競馬ポータル風) */}
+      {/* Header Banner */}
       <section className="rounded-3xl bg-slate-900 text-white p-8 sm:p-10 shadow-xl border border-slate-800 space-y-4 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -27,7 +27,7 @@ export default function PredictionsPage() {
         </h1>
 
         <p className="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
-          独自開発の機械学習AI（KeibaAI）が算出する全レースの予測勝率スコア・確定出馬表・期待値(EV≥1.8)適合馬アーカイブです。
+          独自開発の機械学習AI（KeibaAI）が算出する全対象レースの予測勝率スコア・確定出馬表・期待値(EV≥1.8)適合馬アーカイブです。
         </p>
       </section>
 
@@ -36,7 +36,7 @@ export default function PredictionsPage() {
         <div className="flex items-center justify-between border-b border-slate-200 pb-3">
           <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
             <Trophy className="h-5 w-5 text-emerald-600" />
-            開催日別 予想＆出馬表一覧 ({predictions.length}日分)
+            開催日別 AI予想一覧 ({predictions.length}日分)
           </h2>
         </div>
 
@@ -59,7 +59,7 @@ export default function PredictionsPage() {
                       {formatDate(item.frontmatter.publishedAt)} 開催
                     </span>
                     <span className="text-xs font-bold px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200">
-                      全32レースAI予測掲載
+                      対象レース AI勝率公開中
                     </span>
                   </div>
 
@@ -67,22 +67,22 @@ export default function PredictionsPage() {
                     href={`/predictions/${item.slug}`}
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm shadow-md transition-all group"
                   >
-                    <span>この日の全レース出馬表＆勝率を見る</span>
+                    <span>この日のAI予想＆勝率スコアを見る</span>
                     <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
 
-                {/* 開催地タグ ＆ ピックアップ勝負レース */}
-                <div className="space-y-3">
+                {/* 開催競馬場タグ */}
+                <div className="space-y-2">
                   <div className="text-xs font-bold text-slate-500 flex items-center gap-2">
-                    <MapPin className="h-3.5 w-3.5 text-emerald-600" /> 本日の開催競馬場:
+                    <MapPin className="h-3.5 w-3.5 text-emerald-600" /> 開催競馬場:
                   </div>
 
                   <div className="flex flex-wrap gap-2">
-                    {['📍 札幌競馬場 (12R)', '📍 新潟競馬場 (12R)', '📍 中京競馬場 (12R)'].map((venue) => (
+                    {['📍 新潟競馬場', '📍 中京競馬場', '📍 札幌競馬場'].map((venue) => (
                       <span
                         key={venue}
-                        className="px-3.5 py-2 rounded-xl bg-slate-100 font-extrabold text-xs text-slate-800 border border-slate-200"
+                        className="px-3.5 py-1.5 rounded-xl bg-slate-100 font-extrabold text-xs text-slate-800 border border-slate-200"
                       >
                         {venue}
                       </span>
@@ -93,7 +93,7 @@ export default function PredictionsPage() {
                 {/* 本日の勝負レースミニカード */}
                 <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200/80 space-y-2.5">
                   <div className="text-xs font-bold text-slate-700 flex items-center gap-1">
-                    <Sparkles className="h-3.5 w-3.5 text-amber-500" /> 本日のAI最注目重賞＆勝負レース
+                    <Sparkles className="h-3.5 w-3.5 text-amber-500" /> 本日のAI最注目・重賞＆勝負レース
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                     <div className="bg-white p-3 rounded-xl border border-slate-200 text-xs space-y-1">
