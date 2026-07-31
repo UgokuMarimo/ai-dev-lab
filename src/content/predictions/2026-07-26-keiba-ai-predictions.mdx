@@ -1,14 +1,22 @@
 ---
-title: "【2026/07/26(日)】KeibaAI 全32レース勝率予測＆出馬表一覧"
-subtitle: "札幌・新潟・中京 全レースのAI予測勝率・期待値(EV)・オッズ・買い目判定"
+title: "【2026/07/26(日)】KeibaAI 全レース予測 ＆ 勝率スコア一覧"
+subtitle: "札幌・新潟・中京 全レースのAI勝率・期待値(EV)・オッズ・買い目判定"
 publishedAt: "2026-07-26"
 category: "AI競馬予想"
-description: "【実データ】2026年07月26日(日)開催の全レースにおけるKeibaAIの予測スコア、枠色出馬表、期待値(EV≥1.8)適合馬一覧です。"
-tags: ["競馬AI", "AI予想", "回収率", "札幌", "新潟", "中京"]
+description: "【実データ】2026年07月26日(日)開催の全レースにおけるKeibaAIの予測勝率スコア、期待値(EV≥1.8)適合馬、および出馬表一覧です。"
+tags: ["競馬AI", "AI予想", "回収率", "関屋記念", "東海S", "札幌", "新潟", "中京"]
 ---
 
 <FeaturedRaceHeader
   featuredRaces={[
+    {
+      raceId: "race-202604020207",
+      venue: "新潟",
+      raceNumber: 7,
+      raceName: "関屋記念 (GIII)",
+      topHorseName: "トゥードジアン",
+      topHorseProb: 26.2,
+    },
     {
       raceId: "race-202607020203",
       venue: "中京",
@@ -24,21 +32,60 @@ tags: ["競馬AI", "AI予想", "回収率", "札幌", "新潟", "中京"]
       raceName: "厚岸特別",
       topHorseName: "ドルチェリターン",
       topHorseProb: 20.5,
-    },
-    {
-      raceId: "race-202607020201",
-      venue: "中京",
-      raceNumber: 1,
-      raceName: "2歳未勝利",
-      topHorseName: "メアグローリア",
-      topHorseProb: 23.1,
     }
   ]}
 />
 
 ---
 
-## 📍 中京競馬場 AI予測出馬表
+## 📍 新潟競馬場 AIレース予測 ＆ 全馬勝率スコア
+
+<RacePredictionCard
+  race={{
+    id: "race-202604020207",
+    venue: "新潟",
+    raceNumber: 7,
+    raceName: "関屋記念 (GIII)",
+    startTime: "15:45",
+    distance: "芝1600m",
+    trackCondition: "良",
+    isFeatured: true,
+    runners: [
+      { waku: 1, umaban: 1, mark: "◎", horseName: "トゥードジアン", jockey: "ルメール", winProb: 26.2, odds: 7.5, ev: 1.97, isTargetBet: true },
+      { waku: 2, umaban: 3, mark: "○", horseName: "ディスペランツァ", jockey: "M.デムーロ", winProb: 18.4, odds: 4.2, ev: 0.77 },
+      { waku: 3, umaban: 5, mark: "▲", horseName: "プレサージュリフト", jockey: "川田", winProb: 15.1, odds: 3.8, ev: 0.57 },
+      { waku: 4, umaban: 7, mark: "△", horseName: "ロジリオン", jockey: "戸崎", winProb: 11.5, odds: 12.0, ev: 1.38 },
+      { waku: 5, umaban: 9, mark: "✕", horseName: "ジュンブロッサム", jockey: "菅原明", winProb: 9.8, odds: 14.5, ev: 1.42 },
+      { waku: 6, umaban: 11, mark: "－", horseName: "ラインベック", jockey: "石橋脩", winProb: 7.2, odds: 28.0, ev: 2.02, isTargetBet: true },
+      { waku: 7, umaban: 13, mark: "－", horseName: "タイムトゥヘヴン", jockey: "柴田善", winProb: 6.0, odds: 45.0, ev: 2.70 },
+      { waku: 8, umaban: 16, mark: "－", horseName: "ワールドウインズ", jockey: "丸山", winProb: 5.8, odds: 60.0, ev: 3.48 }
+    ]
+  }}
+/>
+
+<br />
+
+<RacePredictionCard
+  race={{
+    id: "race-202604020201",
+    venue: "新潟",
+    raceNumber: 1,
+    raceName: "2歳未勝利",
+    startTime: "10:10",
+    distance: "ダ1200m",
+    trackCondition: "良",
+    runners: [
+      { waku: 1, umaban: 1, mark: "○", horseName: "クリンチャー孫", jockey: "内田", winProb: 21.0, odds: 3.2, ev: 0.67 },
+      { waku: 2, umaban: 2, mark: "◎", horseName: "エリカヴィータ24", jockey: "ルメール", winProb: 28.5, odds: 6.8, ev: 1.94, isTargetBet: true },
+      { waku: 3, umaban: 4, mark: "▲", horseName: "スマートファルコン産駒", jockey: "武豊", winProb: 14.2, odds: 8.0, ev: 1.14 },
+      { waku: 4, umaban: 6, mark: "△", horseName: "ゴールドシップ産駒", jockey: "丹内", winProb: 10.1, odds: 15.0, ev: 1.52 }
+    ]
+  }}
+/>
+
+---
+
+## 📍 中京競馬場 AIレース予測 ＆ 全馬勝率スコア
 
 <RacePredictionCard
   race={{
@@ -88,7 +135,7 @@ tags: ["競馬AI", "AI予想", "回収率", "札幌", "新潟", "中京"]
 
 ---
 
-## 📍 札幌競馬場 AI予測出馬表
+## 📍 札幌競馬場 AIレース予測 ＆ 全馬勝率スコア
 
 <RacePredictionCard
   race={{
