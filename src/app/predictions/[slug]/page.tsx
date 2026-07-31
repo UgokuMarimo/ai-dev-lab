@@ -2,11 +2,11 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getPredictionBySlug, getPredictionSlugs } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
-import { Calendar, ArrowLeft, Tag } from 'lucide-react';
+import { Calendar, ArrowLeft, Tag, Trophy, Sparkles } from 'lucide-react';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
-import StickyRaceNav from '@/components/predictions/StickyRaceNav';
-import AuthorSidebar from '@/components/common/AuthorSidebar';
+import RacePredictionCard from '@/components/predictions/RacePredictionCard';
+import FeaturedRaceHeader from '@/components/predictions/FeaturedRaceHeader';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props) {
   if (!prediction) return {};
 
   return {
-    title: `${prediction.frontmatter.title} | KeibaAI 競馬予測`,
+    title: `${prediction.frontmatter.title} | KeibaAI 競馬予測ポータル`,
     description: prediction.frontmatter.description,
   };
 }
@@ -39,83 +39,80 @@ export default async function PredictionDetailPage({ params }: Props) {
   }
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto my-6 relative">
-      {/* Left Author Sidebar */}
-      <AuthorSidebar />
-
-      <div className="w-full max-w-3xl mx-auto">
-        {/* Main Article Content */}
-        <article className="w-full space-y-8 bg-white rounded-2xl border border-slate-300 p-6 sm:p-10 shadow-sm">
-          {/* Back link */}
-          <div>
-            <Link
-              href="/predictions"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-[#1b4332] transition-colors"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" /> 競馬予測一覧に戻る
-            </Link>
-          </div>
-
-          {/* Header */}
-          <header className="space-y-4 border-b border-slate-200 pb-6">
-            <div className="flex items-center gap-2 text-xs">
-              <span className="px-3 py-1 rounded-full bg-[#e8f5e9] text-[#1b4332] font-semibold border border-[#2d6a4f]/20">
-                {prediction.frontmatter.category || 'AI競馬予想'}
-              </span>
-              <span className="text-slate-400 inline-flex items-center gap-1">
-                <Calendar className="h-3.5 w-3.5" />
-                <time dateTime={prediction.frontmatter.publishedAt}>
-                  {formatDate(prediction.frontmatter.publishedAt)}
-                </time>
-              </span>
-            </div>
-
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
-              {prediction.frontmatter.title}
-            </h1>
-
-            {prediction.frontmatter.subtitle && (
-              <p className="text-base font-semibold text-[#2d6a4f]">
-                {prediction.frontmatter.subtitle}
-              </p>
-            )}
-
-            <div className="flex flex-wrap gap-2 pt-2">
-              {prediction.frontmatter.tags?.map((tag) => (
-                <span key={tag} className="text-xs text-slate-500 inline-flex items-center gap-1 bg-slate-100 px-2.5 py-1 rounded">
-                  <Tag className="h-3 w-3 text-slate-400" />
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </header>
-
-          {/* Article Content (MDX Render) */}
-          <div className="prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-[#1b4332] prose-table:w-full prose-table:border-collapse prose-th:bg-[#f1f6f2] prose-th:p-2 prose-[#1b4332] prose-td:p-2 prose-td:border-b prose-td:border-slate-100">
-            <MDXRemote
-              source={prediction.content}
-              options={{
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm],
-                },
-              }}
-            />
-          </div>
-
-          {/* Footer Nav */}
-          <div className="pt-8 border-t border-slate-200 flex justify-between items-center text-xs">
-            <Link
-              href="/predictions"
-              className="inline-flex items-center gap-1.5 font-bold text-[#1b4332] hover:text-[#2d6a4f]"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" /> 他の開催日の予測を見る
-            </Link>
-          </div>
-        </article>
-
-        {/* Right Sticky Sidebar Nav */}
-        <StickyRaceNav content={prediction.content} />
+    <div className="py-6 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-6">
+      {/* 戻るナビゲーション */}
+      <div className="flex items-center justify-between">
+        <Link
+          href="/predictions"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1b4332] hover:text-[#2d6a4f] transition-colors bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" /> 競馬予測開催一覧に戻る
+        </Link>
+        <span className="text-xs text-slate-400 inline-flex items-center gap-1">
+          <Calendar className="h-3.5 w-3.5" />
+          <time dateTime={prediction.frontmatter.publishedAt}>
+            {formatDate(prediction.frontmatter.publishedAt)} 開催
+          </time>
+        </span>
       </div>
+
+      {/* ヘッダーカード (ポータルスタイル) */}
+      <header className="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 shadow-lg border border-slate-800 space-y-3 relative overflow-hidden">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="px-3 py-1 rounded-md bg-emerald-600 text-white font-extrabold text-xs tracking-wider uppercase">
+            {prediction.frontmatter.category || 'AI競馬予想ポータル'}
+          </span>
+          <span className="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1">
+            <Sparkles className="h-3 w-3" /> 全32レース AI勝率スコア掲載
+          </span>
+        </div>
+
+        <h1 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+          {prediction.frontmatter.title}
+        </h1>
+
+        {prediction.frontmatter.subtitle && (
+          <p className="text-sm sm:text-base font-semibold text-emerald-400">
+            {prediction.frontmatter.subtitle}
+          </p>
+        )}
+
+        <div className="flex flex-wrap gap-2 pt-2">
+          {prediction.frontmatter.tags?.map((tag) => (
+            <span key={tag} className="text-xs text-slate-300 bg-slate-800 px-2.5 py-1 rounded-md border border-slate-700">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      </header>
+
+      {/* メイン競馬ポータルコンテンツ (MDX + カスタムコンポーネント) */}
+      <main className="w-full space-y-8">
+        <div className="prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-[#1b4332] prose-table:w-full prose-table:border-collapse prose-th:bg-slate-800 prose-th:text-white prose-th:p-2.5 prose-td:p-2.5 prose-td:border-b prose-td:border-slate-200">
+          <MDXRemote
+            source={prediction.content}
+            components={{
+              RacePredictionCard,
+              FeaturedRaceHeader,
+            }}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+              },
+            }}
+          />
+        </div>
+      </main>
+
+      {/* フッターナビ */}
+      <footer className="pt-6 border-t border-slate-200 flex justify-between items-center text-xs">
+        <Link
+          href="/predictions"
+          className="inline-flex items-center gap-1.5 font-bold text-[#1b4332] hover:text-[#2d6a4f]"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" /> 他の開催日の予測を見る
+        </Link>
+      </footer>
     </div>
   );
 }

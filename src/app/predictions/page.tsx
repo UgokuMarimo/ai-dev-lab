@@ -1,74 +1,91 @@
 import Link from 'next/link';
 import { getAllPredictions } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
-import { Calendar, Trophy, ArrowRight, Sparkles } from 'lucide-react';
+import { Calendar, Trophy, ArrowRight, Sparkles, MapPin, CheckCircle2 } from 'lucide-react';
 
 export const metadata = {
-  title: 'AI競馬予測アーカイブ | うごく毬藻 AI Dev Lab',
-  description: 'KeibaAIが毎開催日に算出する全レースのAI勝率予測および重賞予想一覧です。',
+  title: 'AI競馬予測ポータル | KeibaAI 予測アーカイブ',
+  description: 'KeibaAIが毎開催日に算出する全レースのAI勝率予測および重賞・勝負レース予想ポータルです。',
 };
 
 export default function PredictionsPage() {
   const predictions = getAllPredictions();
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-8">
+    <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-8">
       {/* Header Banner */}
-      <section className="rounded-2xl bg-gradient-to-r from-[#1b4332] via-[#2d6a4f] to-[#1e4d38] p-8 text-white shadow-md space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-emerald-100 text-xs font-semibold">
-          <Sparkles className="h-3.5 w-3.5" />
-          <span>KeibaAI Realtime Predictions</span>
+      <section className="rounded-3xl bg-slate-900 text-white p-8 sm:p-10 shadow-xl border border-slate-800 space-y-4 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
+          <Sparkles className="h-4 w-4 text-emerald-400" />
+          <span>KeibaAI Realtime Race Predictions</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-          🏇 AI競馬予測 開催日別一覧
+
+        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
+          🏇 AI競馬予測ポータル 開催一覧
         </h1>
-        <p className="text-emerald-100 text-sm max-w-2xl leading-relaxed">
-          独自開発の機械学習モデル（KeibaAI）が算出した全レースの勝率スコア・注目馬一覧です。開催日ごとに全競馬場の予測結果を掲載しています。
+
+        <p className="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
+          独自開発の機械学習AI（KeibaAI）が各開催日ごとに算出する全レースの勝率スコア・期待値(EV)・推奨買い目アーカイブです。
         </p>
       </section>
 
       {/* Predictions Grid */}
       <div className="space-y-4">
         <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-            <Trophy className="h-5 w-5 text-[#1b4332]" />
-            全開催日の予測レポート ({predictions.length}件)
+          <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
+            <Trophy className="h-5 w-5 text-emerald-600" />
+            開催日別 予測データベース ({predictions.length}件)
           </h2>
         </div>
 
         {predictions.length === 0 ? (
-          <p className="text-slate-500 text-sm py-8 text-center">現在、競馬予測レポートはありません。</p>
+          <p className="text-slate-500 text-sm py-12 text-center bg-white rounded-2xl border border-slate-200">
+            現在、競馬予測レポートはありません。
+          </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {predictions.map((item) => (
               <Link
                 key={item.slug}
                 href={`/predictions/${item.slug}`}
-                className="group bg-white rounded-xl border border-slate-300 p-5 shadow-sm hover:shadow-md hover:border-[#2d6a4f] transition-all duration-200 flex flex-col justify-between"
+                className="group bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-lg hover:border-emerald-500 transition-all duration-200 flex flex-col justify-between space-y-4"
               >
-                <div className="space-y-2.5">
+                <div className="space-y-3">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#e8f5e9] text-[#1b4332] font-semibold border border-[#2d6a4f]/20">
+                    <span className="px-3 py-1 rounded-md bg-slate-900 text-white font-extrabold">
                       {item.frontmatter.category || 'AI競馬予想'}
                     </span>
-                    <span className="text-slate-400 inline-flex items-center gap-1">
-                      <Calendar className="h-3.5 w-3.5" />
-                      {formatDate(item.frontmatter.publishedAt)}
+                    <span className="text-slate-500 font-bold inline-flex items-center gap-1">
+                      <Calendar className="h-3.5 w-3.5 text-emerald-600" />
+                      {formatDate(item.frontmatter.publishedAt)} 開催
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-[#1b4332] transition-colors line-clamp-2">
+                  <h3 className="text-lg font-black text-slate-900 group-hover:text-emerald-700 transition-colors leading-snug">
                     {item.frontmatter.title}
                   </h3>
+
+                  {item.frontmatter.subtitle && (
+                    <p className="text-xs font-semibold text-emerald-600 line-clamp-1">
+                      {item.frontmatter.subtitle}
+                    </p>
+                  )}
 
                   <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
                     {item.frontmatter.description}
                   </p>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                  <span className="text-[#2d6a4f] font-semibold">全レース予測テーブルを見る</span>
-                  <ArrowRight className="h-4 w-4 text-[#1b4332] group-hover:translate-x-1 transition-transform" />
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-800">
+                  <span className="text-emerald-700 flex items-center gap-1">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                    全32レース出馬表 ＆ AI予測勝率テーブルを見る
+                  </span>
+                  <div className="h-8 w-8 rounded-full bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center transition-colors">
+                    <ArrowRight className="h-4 w-4" />
+                  </div>
                 </div>
               </Link>
             ))}
