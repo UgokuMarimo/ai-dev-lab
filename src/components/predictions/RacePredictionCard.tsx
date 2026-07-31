@@ -10,6 +10,10 @@ interface Props {
 }
 
 export default function RacePredictionCard({ race }: Props) {
+  if (!race || !race.runners) {
+    return null;
+  }
+
   // 最高勝率馬・最高EV馬
   const topProbRunner = [...race.runners].sort((a, b) => b.winProb - a.winProb)[0];
   const targetBetRunner = race.runners.find((r) => r.isTargetBet || (r.ev >= 1.8 && r.winProb >= 10));
@@ -17,7 +21,7 @@ export default function RacePredictionCard({ race }: Props) {
   return (
     <section
       id={race.id}
-      className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all hover:shadow-md"
+      className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all hover:shadow-md my-6"
     >
       {/* レースヘッダー */}
       <div className="bg-slate-900 text-white px-5 py-4 flex flex-wrap items-center justify-between gap-3 border-b border-slate-800">
