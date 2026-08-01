@@ -4,7 +4,7 @@ import { getPredictionBySlug, getPredictionSlugs } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
 import { Calendar, ArrowLeft, Sparkles } from 'lucide-react';
 import PredictionDashboard from '@/components/predictions/PredictionDashboard';
-import { predictionDay20260726 } from '@/content/predictions/data/2026-07-26';
+import { getPredictionDayDataBySlug } from '@/content/predictions/data';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -36,8 +36,8 @@ export default async function PredictionDetailPage({ params }: Props) {
     notFound();
   }
 
-  // 今回の予測データのセット（日付ベース）
-  const dayData = predictionDay20260726;
+  // slugに対応する予想データのセット（7/25, 7/26など）
+  const dayData = getPredictionDayDataBySlug(slug);
 
   return (
     <div className="py-6 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-6">
